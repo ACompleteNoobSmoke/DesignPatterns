@@ -9,7 +9,7 @@ public class Organizer {
 
     public String getState(){ return state; }
 
-    public Memento createMemento(String state) {
+    public Memento createMemento() {
         return new Memento(state);
     }
 
