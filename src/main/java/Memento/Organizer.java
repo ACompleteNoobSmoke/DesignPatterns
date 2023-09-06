@@ -9,15 +9,13 @@ public class Organizer {
 
     public String getState(){ return state; }
 
-    public Memento createMemento() {
-        return new Memento(state);
-    }
+    public Memento createMemento(){ return new Memento(state); }
 
     public void restore(Memento memento){
         this.state = memento.getState();
     }
 
     public String toString(){
-        return "State: " + state;
+        return "Current State: " + state;
     }
 }

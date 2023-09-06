@@ -1,6 +1,5 @@
 
 import Memento.Caretaker;
-import Memento.Memento;
 import Memento.Organizer;
 import org.junit.jupiter.api.*;
 
