@@ -29,7 +29,7 @@ jobs:
       - name: Create pull request
         uses: repo-sync/pull-request@v2
         with:
-          destination_branch: "main"
+          destination_branch: "master"
           pr_title: "feat: ${GITHUB_REF##*/}"
           pr_reviewer: "Vegeta"
           pr_draft: true
