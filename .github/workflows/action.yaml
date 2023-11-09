@@ -2,8 +2,8 @@ name: Test Workflow
 
 on:
   push:
-    branches:
-      - '!master'
+    branches-ignore:
+      - 'master'
 
 jobs:
   test:
@@ -24,5 +24,13 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v5
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: "master"
+          pr_title: "feat: ${{GITHUB_REF##*/}}"
+          pr_reviewer: "ACompleteNoobSmoke"
+          pr_draft: true
