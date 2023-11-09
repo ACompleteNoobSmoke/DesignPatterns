@@ -36,17 +36,15 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Get Env
-        id: getEnv
-        env:
-          branch_name: ${{needs.github_info.outputs.ref_name }}
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Create pull request
         uses: repo-sync/pull-request@v2
+        env:
+          branch_name: ${{ needs.github_info_outputs.ref_name }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_branch: "master"
-          pr_title: "${{needs.steps.getEnv.branch_name}}"
+          pr_title: "$branch_name"
           pr_reviewer: "ACompleteNoobSmoke"
           pr_draft: true
