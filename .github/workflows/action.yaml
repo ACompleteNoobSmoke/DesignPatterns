@@ -22,7 +22,6 @@ jobs:
 
   info:
     runs-on: ubuntu-latest
-    id: github_info
     outputs:
       ref_name: ${{ steps.get_branch.outputs.branch_name }}
     steps:
@@ -41,7 +40,7 @@ jobs:
       - name: Create pull request
         uses: repo-sync/pull-request@v2
         env:
-          branch_name: ${{ needs.github_info_outputs.ref_name }}
+          branch_name: ${{ needs.info.outputs.ref_name }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_branch: "master"
