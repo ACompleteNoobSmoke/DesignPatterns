@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Update
+        run: 'brew update && brew upgrade hub'
       - name: Create pull request
         uses: repo-sync/pull-request@v2
         with:
