@@ -28,7 +28,7 @@ jobs:
       - name: Output Github context
         id: get_branch
         run: |
-          echo "${{ toJSON(github) }}"
+          echo "${{ toJSON(github.event) }}"
           echo "branch_name = ${{ github.event.ref_name }}" >> "$GITHUB_OUTPUT"
 
   pull_request:
