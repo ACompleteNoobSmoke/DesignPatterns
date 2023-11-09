@@ -33,5 +33,5 @@ jobs:
         with:
           destination_branch: "master"
           pr_title: "feat: ${GITHUB_REF##*/}"
-          pr_reviewer: "Vegeta"
+          pr_reviewer: "ACompleteNoobSmoke"
           pr_draft: true
