@@ -27,4 +27,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v5
+        run: gh pr create -B main -H ${GITHUB_REF##*/} --title 'Merge ${GITHUB_REF##*/} into main' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
