@@ -27,6 +27,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Create pull request
-        run: gh pr create -B master -H ${GITHUB_REF##*/} --title 'Merge ${GITHUB_REF##*/} into main' --body 'Created by Github action'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "main"
+          pr_title: "feat: ${GITHUB_REF##*/}"
+          pr_reviewer: "Vegeta"
+          pr_draft: true
