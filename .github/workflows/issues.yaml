@@ -24,7 +24,7 @@ jobs:
             - name: Print issues
               run: echo "${{ toJSON(github.event) }}"
             - name: Create Closing Response
-              if: ${{ github.event.issue.closed }}
+              if: ${{ github.event.issue.state == 'closed' }}
               uses: EddieHubCommunity/gh-action-community/src/welcome@main
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
