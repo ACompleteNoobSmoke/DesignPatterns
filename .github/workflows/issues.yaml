@@ -1,0 +1,18 @@
+name: Response On Issues
+
+on:
+    issues:
+        types:
+        - opened
+
+
+jobs:
+    response_to_issues:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Create Response
+          uses: EddieHubCommunity/gh-action-community/src/welcome@main
+          with:
+              github-token: ${{ secrets.GITHUB_TOKEN }}
+              issue-message: "It's great to have your input on this project."
+              footer: "Stay BASED!"
