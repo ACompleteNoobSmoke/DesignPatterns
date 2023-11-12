@@ -22,7 +22,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Print issues
-              run: echo ${{ toJSON(github.event) }}
+              run: echo "${{ toJSON(github.event) }}"
             - name: Create Closing Response
               if: ${{ github.event.issue.closed }}
               uses: EddieHubCommunity/gh-action-community/src/welcome@main
