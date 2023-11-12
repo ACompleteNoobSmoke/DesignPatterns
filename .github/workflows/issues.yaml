@@ -29,4 +29,4 @@ jobs:
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   issue-message: "Great. It seems like the issue has been resolved"
-                  footer: "Stay BASED!"
+                  footer: "Stay BASED!!"
