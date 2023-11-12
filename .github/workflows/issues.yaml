@@ -8,6 +8,12 @@ on:
 
 
 jobs:
+    print-info:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Info
+          run: echo "${{ toJSON(github.event) }}"
+
     response_to_issues:
         runs-on: ubuntu-latest
         steps:
@@ -22,8 +28,6 @@ jobs:
     response_to_closed_issues:
         runs-on: ubuntu-latest
         steps:
-            - name: Print issues
-              run: echo "${{ toJSON(github.event) }}"
             - name: Create Closing Response
               if: ${{ github.event.issue.state == 'closed' }}
               uses: aws-actions/closed-issue-message@v1
