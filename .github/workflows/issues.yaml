@@ -4,6 +4,7 @@ on:
     issues:
         types:
         - opened
+        - closed
 
 
 jobs:
@@ -16,3 +17,14 @@ jobs:
               github-token: ${{ secrets.GITHUB_TOKEN }}
               issue-message: "It's great to have your input on this project."
               footer: "Stay BASED!"
+
+    response_to_closed_issues:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Create Closing Response
+              if: ${{ github.event.issue.closed }}
+              uses: EddieHubCommunity/gh-action-community/src/welcome@main
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  issue-message: "Great. It seems like the issue has been resolved"
+                  footer: "Stay BASED!
