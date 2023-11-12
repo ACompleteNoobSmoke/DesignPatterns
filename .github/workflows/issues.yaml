@@ -12,6 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: Create Response
+          if: ${{ github.event.issue.state == 'opened' }}
           uses: EddieHubCommunity/gh-action-community/src/welcome@main
           with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -25,9 +26,8 @@ jobs:
               run: echo "${{ toJSON(github.event) }}"
             - name: Create Closing Response
               if: ${{ github.event.issue.state == 'closed' }}
-              uses: EddieHubCommunity/gh-action-community/src/welcome@main
+              uses: aws-actions/closed-issue-message@v1
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  issue-message: "Great. It seems like the issue has been resolved"
-                  footer: "Stay BASED!!"
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  message: "Great. It seems like the issue has been resolved. BASED GOD OUT!!"
 
