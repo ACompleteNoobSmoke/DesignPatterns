@@ -21,10 +21,13 @@ jobs:
     response_to_closed_issues:
         runs-on: ubuntu-latest
         steps:
+            - name: Print issues
+              run: echo ${{ toJSON(github.event) }}
             - name: Create Closing Response
               if: ${{ github.event.issue.closed }}
               uses: EddieHubCommunity/gh-action-community/src/welcome@main
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   issue-message: "Great. It seems like the issue has been resolved"
-                  footer: "Stay BASED!"
+                  footer: "Stay BASED!!"
+
