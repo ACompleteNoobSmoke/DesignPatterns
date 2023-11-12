@@ -12,13 +12,13 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Info
-          run: echo "${{ toJSON(github.event) }}"
+          run: echo "${{ toJSON(github.event.issue) }}"
 
     response_to_issues:
         runs-on: ubuntu-latest
         steps:
         - name: Create Response
-          if: ${{ github.event.issue.state == 'opened' }}
+          if: ${{ github.event.issue.state == 'open' }}
           uses: EddieHubCommunity/gh-action-community/src/welcome@main
           with:
               github-token: ${{ secrets.GITHUB_TOKEN }}
