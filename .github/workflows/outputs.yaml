@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Print
+        run: echo "${{ toJSON(github.event) }}"
       - name: Get values
         id: action_value
         run: echo "action = ${{ github.event.action }}" >> "$GITHUB_OUTPUT"
