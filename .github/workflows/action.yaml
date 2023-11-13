@@ -1,47 +1,47 @@
-name: Test Workflow
-
-on:
-  push:
-    branches-ignore:
-      - 'master'
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Setup JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: Run maven test
-        run: mvn clean test
-
-  info:
-    runs-on: ubuntu-latest
-    outputs:
-      ref_name: ${{ steps.get_branch.outputs.branch_name }}
-    steps:
-      - name: Output Github context
-        id: get_branch
-        run: |
-          echo "${{ toJSON(github.event) }}"
-          echo "branch_name = ${{ github.event.ref_name }}" >> "$GITHUB_OUTPUT"
-
-  pull_request:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Create pull request
-        uses: repo-sync/pull-request@v2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          destination_branch: "master"
-          pr_title: ${{ github.ref_name }}
-          pr_reviewer: "ACompleteNoobSmoke"
-          pr_draft: true
+#name: Test Workflow
+#
+#on:
+#  push:
+#    branches-ignore:
+#      - 'master'
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repo
+#        uses: actions/checkout@v4
+#      - name: Setup JDK 17
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#          cache: maven
+#      - name: Run maven test
+#        run: mvn clean test
+#
+#  info:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      ref_name: ${{ steps.get_branch.outputs.branch_name }}
+#    steps:
+#      - name: Output Github context
+#        id: get_branch
+#        run: |
+#          echo "${{ toJSON(github.event) }}"
+#          echo "branch_name = ${{ github.event.ref_name }}" >> "$GITHUB_OUTPUT"
+#
+##  pull_request:
+##    needs: test
+##    runs-on: ubuntu-latest
+##    steps:
+##      - name: Checkout repo
+##        uses: actions/checkout@v4
+##      - name: Create pull request
+##        uses: repo-sync/pull-request@v2
+##        with:
+##          github_token: ${{ secrets.GITHUB_TOKEN }}
+##          destination_branch: "master"
+##          pr_title: ${{ github.ref_name }}
+##          pr_reviewer: "ACompleteNoobSmoke"
+##          pr_draft: true
