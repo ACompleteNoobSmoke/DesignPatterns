@@ -1,0 +1,27 @@
+name: Testing Outputs
+
+on:
+  push:
+
+
+jobs:
+  getOutputs:
+    runs-on: ubuntu-latest
+    outputs: ${{ steps.action_value.outputs.action }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get values
+        id: action_value
+        run: echo "action = ${{ github.event.action }}" >> "$GITHUB_OUTPUT"
+
+
+  printOutputs:
+    runs-on: ubuntu-latest
+    needs: getOutputs
+    steps:
+      - name: Print Value
+        run: echo "Action Step is $action"
+        with:
+          env:
+            action: ${{ needs.getOutputs.outputs }}
