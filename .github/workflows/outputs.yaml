@@ -23,6 +23,5 @@ jobs:
     steps:
       - name: Print Value
         run: echo "Action Step is $action"
-        with:
-          env:
-            action: ${{ needs.getOutputs.outputs.actionvalue }}
+        env:
+          action: ${{ needs.getOutputs.outputs.actionvalue }}
