@@ -7,7 +7,8 @@ on:
 jobs:
   getOutputs:
     runs-on: ubuntu-latest
-    outputs: ${{ steps.action_value.outputs.action }}
+    outputs:
+      actionvalue: ${{ steps.action_value.outputs.action }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,4 +25,4 @@ jobs:
         run: echo "Action Step is $action"
         with:
           env:
-            action: ${{ needs.getOutputs.outputs }}
+            action: ${{ needs.getOutputs.outputs.actionvalue }}
