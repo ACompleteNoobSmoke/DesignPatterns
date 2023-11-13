@@ -16,7 +16,7 @@ jobs:
         run: echo "${{ toJSON(github) }}"
       - name: Get values
         id: action_value
-        run: echo "action = ${{ github.event.action }}" >> "$GITHUB_OUTPUT"
+        run: echo "action = ${{ github.event_name }}" >> "$GITHUB_OUTPUT"
 
 
   printOutputs:
