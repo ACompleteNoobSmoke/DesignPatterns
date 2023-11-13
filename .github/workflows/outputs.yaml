@@ -1,7 +1,6 @@
 name: Testing Outputs
 
-on:
-  [push, issues]
+on: [push, issues]
 
 
 jobs:
@@ -27,7 +26,7 @@ jobs:
         if: needs.getOutputs.outputs.actionvalue == 'push'
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
-        run: echo "I'm $actioning P"
+        run: echo "I'm $action ing P"
 
       - name: Issue Print
         if: needs.getOutputs.outputs.actionvalue == 'issues'
