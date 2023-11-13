@@ -26,12 +26,12 @@ jobs:
       - name: Push Print
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
-        if: $action == 'push'
+        if: action == 'push'
         run: echo "I'm pushing P"
 
       - name: Issue Print
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
-        if: $action == 'issues'
+        if: action == 'issues'
         run: echo "You got trust issues"
 
