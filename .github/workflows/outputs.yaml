@@ -22,6 +22,6 @@ jobs:
     needs: getOutputs
     steps:
       - name: Print Value
-        run: echo "Action Step is $action"
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
+        run: echo "Action Step is $action"
