@@ -24,14 +24,14 @@ jobs:
     needs: getOutputs
     steps:
       - name: Push Print
+        if: needs.getOutputs.outputs.actionvalue == 'push'
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
-        if: action == 'push'
-        run: echo "I'm pushing P"
+        run: echo "I'm $actioning P"
 
       - name: Issue Print
+        if: needs.getOutputs.outputs.actionvalue == 'issues'
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
-        if: action == 'issues'
-        run: echo "You got trust issues"
+        run: echo "You got trust $action"
 
