@@ -1,7 +1,7 @@
 name: Testing Outputs
 
 on:
-  push:
+  [push, issues]
 
 
 jobs:
@@ -23,7 +23,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: getOutputs
     steps:
-      - name: Print Value
+      - name: Push Print
         env:
           action: ${{ needs.getOutputs.outputs.actionvalue }}
-        run: echo "Action Step is $action"
+        if: $action == 'push'
+        run: echo "I'm pushing P"
+
+      - name: Issue Print
+        env:
+          action: ${{ needs.getOutputs.outputs.actionvalue }}
+        if: $action == 'issues'
+        run: echo "You got trust issues"
+
