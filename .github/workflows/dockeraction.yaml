@@ -40,6 +40,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          repository: acompletenoobsmoke/design_pattern
           push: true
           tags: pattern/app:latest
