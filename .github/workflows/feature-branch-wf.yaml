@@ -1,0 +1,34 @@
+name: Feature Branch Workflow
+
+run-name: "Feature Branch CI -- ${{github.event.inputs.action}} Action - feature/${{github.event.inputs.feature_branch}} "
+
+# Trigger workflow manually using the UI button
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: string
+        required: true
+      feature_branch:
+        type: string
+        required: true
+        
+env:
+  TRUNK_BRANCH: main
+  FEATURE_BRANCH: feature/${{github.event.inputs.feature_branch}}
+  PR_EXIST: 'false'
+  PR_URL: ''
+  PR_HTML_URL: ''
+
+# Define jobs within the workflow
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    name: Check If PR Exist For Branch
+    if: github.event.inputs.feature_branch != ''
+    steps:
+      - name: Start
+        uses: BasedNoobDevelopers/maven-feature-branch-action/.github/workflows/feature-branch.yaml@main
+        with:
+          action: ${{inputs.action}}
+          feature_branch: ${{env.FEATURE_BRANCH}}
