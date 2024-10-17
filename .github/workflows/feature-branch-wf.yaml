@@ -23,12 +23,9 @@ env:
 # Define jobs within the workflow
 jobs:
   start:
-    runs-on: ubuntu-latest
     name: Check If PR Exist For Branch
     if: github.event.inputs.feature_branch != ''
-    steps:
-      - name: Start
-        uses: BasedNoobDevelopers/maven-feature-branch-action/.github/workflows/feature-branch.yaml@main
-        with:
-          action: ${{inputs.action}}
-          feature_branch: ${{env.FEATURE_BRANCH}}
+    uses: BasedNoobDevelopers/maven-feature-branch-action/.github/workflows/feature-branch.yaml@main
+    with:
+        action: ${{inputs.action}}
+        feature_branch: feature/${{github.event.inputs.feature_branch}}
