@@ -28,6 +28,7 @@ jobs:
     github-output-2:
         name: GitHub Output 2
         runs-on: macos-latest
+        needs: github-output
         steps:
             - name: Existing Outputs
               run: echo ${{steps.addition.outputs.Name}}
