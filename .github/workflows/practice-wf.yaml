@@ -19,11 +19,15 @@ jobs:
                echo ${{steps.addition.outputs.Answer}}
                echo "${{steps.addition.outputs.Name}} Is The Greatest Programmer Eva!" >> sample.txt
 
-            - 
+            - name: Upload File
               uses: actions/upload-artifact@v4
               with:
                  name: my_new_artifact
                  path: sample.txt
+
+        outputs:
+             NAME: ${{steps.addition.outputs.Name}}
+             AGE: '32'
 
     github-output-2:
         name: GitHub Output 2
@@ -31,4 +35,8 @@ jobs:
         needs: github-output
         steps:
             - name: Existing Outputs
-              run: echo ${{steps.addition.outputs.Name}}
+              run: |
+                echo ${{needs.github-output.outputs.NAME}}
+                echo ${{needs.github-output.outputs.AGE}}
+
+
