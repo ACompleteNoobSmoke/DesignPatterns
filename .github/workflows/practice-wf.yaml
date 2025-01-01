@@ -13,11 +13,13 @@ jobs:
               run: |
                 echo "Answer=$((2 + 2))" >> $GITHUB_OUTPUT
                 echo "Name=Navid" >> $GITHUB_OUTPUT
+                echo "Job='Software Engineer'" >> $GITHUB_ENV
 
             - name: Answer
               run: |
                echo ${{steps.addition.outputs.Answer}}
                echo "${{steps.addition.outputs.Name}} Is The Greatest Programmer Eva!" >> sample.txt
+               echo ${{env.Job}}
 
             - name: Upload File
               uses: actions/upload-artifact@v4
