@@ -11,7 +11,7 @@ jobs:
             - name: Addition
               id: addition
               run: |
-                echo "Answer=$(2 + 2)" >> $GITHUB_OUTPUT
+                echo "Answer=$((2 + 2))" >> $GITHUB_OUTPUT
                 echo "Name=Navid" >> $GITHUB_OUTPUT
 
             - name: Answer
