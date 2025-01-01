@@ -19,7 +19,15 @@ jobs:
                echo ${{steps.addition.outputs.Answer}}
                echo "${{steps.addition.outputs.Name}} Is The Greatest Programmer Eva!" >> sample.txt
 
-            - uses: actions/upload-artifact@v4
+            - 
+              uses: actions/upload-artifact@v4
               with:
                  name: my_new_artifact
                  path: sample.txt
+
+    github-output-2:
+        name: GitHub Output 2
+        runs-on: macos-latest
+        steps:
+            - name: Existing Outputs
+              run: echo ${{steps.addition.outputs.Name}}
