@@ -9,38 +9,9 @@ jobs:
         name: GitHub Outputs
         runs-on: ubuntu-latest
         steps:
-            - name: Addition
-              id: addition
-              run: |
-                echo "Answer=$((2 + 2))" >> $GITHUB_OUTPUT
-                echo "Name=Navid" >> $GITHUB_OUTPUT
-                echo "Job='Software Engineer'" >> $GITHUB_ENV
+            - name: GitHub Context
+              run: echo ${{toJson(github)}}
+              
 
-            - name: Answer
-              run: |
-               echo ${{steps.addition.outputs.Answer}}
-               echo "${{steps.addition.outputs.Name}} Is The Greatest Programmer Eva!" >> sample.txt
-               echo ${{env.Job}}
-
-            - name: Upload File
-              uses: actions/upload-artifact@v4
-              with:
-                 name: my_new_artifact
-                 path: sample.txt
-
-        outputs:
-             NAME: ${{steps.addition.outputs.Name}}
-             AGE: '32'
-
-    github-output-2:
-        name: GitHub Output 2
-        runs-on: macos-latest
-        needs: github-output
-        steps:
-            - name: Existing Outputs
-              run: |
-                echo ${{needs.github-output.outputs.NAME}}
-                echo ${{needs.github-output.outputs.AGE}}
-                echo ${{env.Job}}
 
 
