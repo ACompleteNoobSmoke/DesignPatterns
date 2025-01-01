@@ -17,4 +17,9 @@ jobs:
             - name: Answer
               run: |
                echo ${{steps.addition.outputs.Answer}}
-               echo ${{steps.addition.outputs.Name}}
+               echo "${{steps.addition.outputs.Name}} Is The Greatest Programmer Eva!" >> sample.txt
+
+            - uses: actions/upload-artifact@v4
+              with:
+                 name: my_new_artifact
+                 path: sample.txt
