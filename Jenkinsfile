@@ -4,10 +4,6 @@
 pipeline {
     agent any
 
-     tools {
-        jdk "java-21"
-     }
-
 
     environment {
 
@@ -21,9 +17,6 @@ pipeline {
         // Console debug options
         timestamps()
         ansiColor('xterm')
-
-        // necessary for communicating status to gitlab
-        gitLabConnection('fda-shield-group')
     }
 
     stages {
@@ -32,14 +25,11 @@ pipeline {
                 expression { return BRANCH_NAME == "master"}
             }
             steps {
-                updateGitlabCommitStatus name: 'build', state: 'running'
                 script{
-                    configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-                        sh """
+                   sh """
                             java --version
                             mvn clean install 
                         """
-                    }
                 }
             }
         }
