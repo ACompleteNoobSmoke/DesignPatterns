@@ -29,7 +29,7 @@ pipeline {
     stages {
         stage('Maven Build') {
             when {
-                expression { return BRANCH_NAME == "main"}
+                expression { return BRANCH_NAME == "master"}
             }
             steps {
                 updateGitlabCommitStatus name: 'build', state: 'running'
@@ -44,108 +44,6 @@ pipeline {
             }
         }
 
-        stage('Maven Build -- Feature Branch') {
-            when {
-                expression { return BRANCH_NAME != "main"}
-            }
-            steps {
-                updateGitlabCommitStatus name: 'build', state: 'running'
-                script{
-                    configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-                        sh """
-                            java --version
-                            mvn clean install \
-                                -s '${MAVEN_SETTINGS}' \
-                                --batch-mode \
-                                -e \
-                                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-                                -Denforcer.skip=true \
-                                -PcodeQuality
-                        """
-                    }
-                }
-            }
-        }
-
-        stage("Publish to Nexus Repository Manager") {
-            steps {
-                script {
-                    pomModel = readMavenPom(file: 'pom.xml')
-                    pomVersion = pomModel.getVersion()
-                    isSnapshot = pomVersion.contains("-SNAPSHOT")
-                    repositoryId = 'maven-snapshots'
-
-                    if (env.TAG_NAME) {
-                        if (!isSnapshot) {
-                            repositoryId = 'maven-releases'
-                        } else {
-                            echo "ERROR: Only tag release versions. Tagged version was '${pomVersion}'"
-                            fail()
-                        }
-                    }
-
-                    configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-                        sh """
-                            mvn deploy \
-                                --batch-mode \
-                                -e \
-                                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-                                -DskipTests \
-                                -DskipITs \
-                                -Dmaven.main.skip \
-                                -Dmaven.test.skip \
-                                -s '${MAVEN_SETTINGS}' \
-                                -DrepositoryId='${repositoryId}' \
-                                -Dgpg.passphrase='${GPG_PASSPHRASE}'
-                        """
-                    }
-                }
-            }
-        }
-
-        stage("Publish to OSSRH maven central") {
-
-            when{
-                expression{
-                    buildingTag() && !isSnapshot
-                }
-            }
-
-            steps {
-                script {
-                    pomModel = readMavenPom(file: 'pom.xml')
-                    pomVersion = pomModel.getVersion()
-                    isSnapshot = pomVersion.contains("-SNAPSHOT")
-                    repositoryId = 'maven-snapshots'
-
-                    if (env.TAG_NAME) {
-                        if (!isSnapshot) {
-                            repositoryId = 'maven-releases'
-                        } else {
-                            echo "ERROR: Only tag release versions. Tagged version was '${pomVersion}'"
-                            fail()
-                        }
-                    }
-
-                    configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-                        sh """
-                            mvn deploy \
-                                --batch-mode \
-                                -e \
-                                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-                                -DskipTests \
-                                -DskipITs \
-                                -Dmaven.main.skip \
-                                -Dmaven.test.skip \
-                                -s '${MAVEN_SETTINGS}' \
-                                -DrepositoryId='${repositoryId}' \
-                                -DrepositoryIdOSSRH='true' \
-                                -PstageOSSRH -Dgpg.passphrase='${GPG_PASSPHRASE}'
-                        """
-                    }
-                }
-            }
-        }
     }
 
     post {
