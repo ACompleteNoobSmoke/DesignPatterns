@@ -3,9 +3,10 @@
 pipeline {
     agent any 
     stages {
-        stage('build') {
+        stage('Hello-World') {
             steps {
                 sh 'java --version'
+                sh 'Hello World'
             }
         }
     }
