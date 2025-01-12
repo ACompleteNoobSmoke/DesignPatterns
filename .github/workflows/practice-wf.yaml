@@ -1,17 +1,28 @@
-# name: Practice Workflow
+name: Practice Workflow
+ 
+on:
+    push:
 
-# on:
-#     push:
-#     workflow_dispatch:
 
-# jobs:
-#     github-output:
-#         name: GitHub Outputs
-#         runs-on: ubuntu-latest
-#         steps:
-#             - name: GitHub Context
-#               run: echo ${{toJson(github)}}
-              
+jobs:
+    hello-world:
+        name: Hello World
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Install Java
+              uses: actions/setup-java@v4
+              with:
+                distribution: 'zulu' # See 'Supported distributions' for available options
+                java-version: '21'
+
+            - name: Build Java
+              run: mvn clean install
+
+            
+
 
 
 
