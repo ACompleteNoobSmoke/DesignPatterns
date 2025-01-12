@@ -1,16 +1,16 @@
-name: Practice Workflow
+# name: Practice Workflow
 
-on:
-    push:
-    workflow_dispatch:
+# on:
+#     push:
+#     workflow_dispatch:
 
-jobs:
-    github-output:
-        name: GitHub Outputs
-        runs-on: ubuntu-latest
-        steps:
-            - name: GitHub Context
-              run: echo ${{toJson(github)}}
+# jobs:
+#     github-output:
+#         name: GitHub Outputs
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: GitHub Context
+#               run: echo ${{toJson(github)}}
               
 
 
